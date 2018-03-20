@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3d5b813-2baf-405a-97d7-6df843793998" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/company/PriceCalculator.java" afterPath="$PROJECT_DIR$/src/main/java/com/company/PriceCalculator.java" />
     </list>
     <ignored path="PriceCalculator.iws" />
@@ -30,8 +29,8 @@
       <file leaf-file-name="PriceCalculator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/company/PriceCalculator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
+            <state relative-caret-position="546">
+              <caret line="163" column="49" selection-start-line="163" selection-start-column="49" selection-end-line="163" selection-end-column="49" />
               <folding>
                 <element signature="e#1210#1218#0" expanded="true" />
               </folding>
@@ -681,12 +680,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1521153421076</updated>
-      <workItem from="1521153425875" duration="65260000" />
+      <workItem from="1521153425875" duration="65506000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65260000" />
+    <option name="totallyTimeSpent" value="65506000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="3" y="23" width="1439" height="873" extended-state="6" />
@@ -810,8 +809,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/company/PriceCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
+        <state relative-caret-position="546">
+          <caret line="163" column="49" selection-start-line="163" selection-start-column="49" selection-end-line="163" selection-end-column="49" />
           <folding>
             <element signature="e#1210#1218#0" expanded="true" />
           </folding>

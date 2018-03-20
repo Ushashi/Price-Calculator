@@ -161,6 +161,6 @@ public class PriceCalculator {
             e.printStackTrace();
         }
 
-        System.out.println(totalCartPrice);
+        System.out.println(totalCartPrice +"\n");
     }
 }
