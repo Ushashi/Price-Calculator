@@ -111,12 +111,11 @@ public class PriceCalculator {
         JSONParser parser = new JSONParser();
 
         //Builds out the priceHash from the base prices file
-        buildPriceHash(priceHash, orderedOptionsMap, args[0]);
-
+        buildPriceHash(priceHash, orderedOptionsMap, args[1]);
 
         try {
 
-            JSONArray cart = (JSONArray) parser.parse(new FileReader( args[1]));
+            JSONArray cart = (JSONArray) parser.parse(new FileReader( args[0]));
 
             for (Object obj : cart)
             {
