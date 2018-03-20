@@ -1,6 +1,7 @@
 /**
  * Created by uchakraborty on 3/15/18.
  */
+package com.company;
 import java.io.FileReader;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,31 +29,31 @@ public class PriceCalculator {
 
             JSONArray basePrices = (JSONArray) parser.parse(new FileReader(basePricesFilePath));
 
-                    for (Object object : basePrices) {
-                        strBu.setLength(0);
+            for (Object object : basePrices) {
+                strBu.setLength(0);
 
-                        JSONObject jsonObject = (JSONObject) object;
+                JSONObject jsonObject = (JSONObject) object;
 
-                        String productType = (String) jsonObject.get("product-type");
-                        strBu.append(productType);
+                String productType = (String) jsonObject.get("product-type");
+                strBu.append(productType);
 
-                        Map optionsMap = ((Map) jsonObject.get("options"));
+                Map optionsMap = ((Map) jsonObject.get("options"));
 
-                        List<String> temp = new ArrayList<String>();
+                List<String> temp = new ArrayList<String>();
 
-                        if(!orderedOptionsMap.containsKey(productType)) {
-                            temp.addAll(optionsMap.keySet());
-                            orderedOptionsMap.put(productType, temp);
-                        }
+                if(!orderedOptionsMap.containsKey(productType)) {
+                    temp.addAll(optionsMap.keySet());
+                    orderedOptionsMap.put(productType, temp);
+                }
 
-                        long base_price = (Long) jsonObject.get("base-price");
+                long base_price = (Long) jsonObject.get("base-price");
 
-                        List orderedOptionsList = new ArrayList<String>();
-                        orderedOptionsList = (ArrayList<String>)orderedOptionsMap.get(productType);
+                List orderedOptionsList = new ArrayList<String>();
+                orderedOptionsList = (ArrayList<String>)orderedOptionsMap.get(productType);
 
-                        hashIndexBuilder(iterator, orderedOptionsList, strBu, priceHash, optionsMap, base_price);
+                hashIndexBuilder(iterator, orderedOptionsList, strBu, priceHash, optionsMap, base_price);
 
-                    }
+            }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -109,15 +110,13 @@ public class PriceCalculator {
         StringBuilder sb = new StringBuilder();
         JSONParser parser = new JSONParser();
 
-        String basePriceFilePath = "/Users/uchakraborty/ShoppingCartSchemas/base-prices.json";
-        String cartFilePath = "/Users/uchakraborty/ShoppingCartSchemas/cart-9363.json";
-
         //Builds out the priceHash from the base prices file
-        buildPriceHash(priceHash, orderedOptionsMap, basePriceFilePath);
+        buildPriceHash(priceHash, orderedOptionsMap, args[0]);
+
 
         try {
 
-            JSONArray cart = (JSONArray) parser.parse(new FileReader(cartFilePath));
+            JSONArray cart = (JSONArray) parser.parse(new FileReader( args[1]));
 
             for (Object obj : cart)
             {
