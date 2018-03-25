@@ -8,7 +8,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
@@ -22,6 +22,9 @@ public class PriceCalculator {
         long quantity;
     }
 
+    /*  Builds out a Hash that contains prices corresponding to
+        every combination of product type and options from base prices
+    */
     private static int buildPriceHash(HashMap priceHash, HashMap orderedOptionsMap, String basePricesFilePath) {
         int price = 0;
         int iterator = 0;
@@ -73,7 +76,11 @@ public class PriceCalculator {
 
     }
 
-
+    /*  Sets an uniform ordering of the various options for each product type
+        such that the hash key comprising of a string of product-type appended
+        with it's corresponding options are ordered same irrespective of their
+        ordering in the input files
+    */
     private static void hashIndexBuilder(int iterator, List orderedOptionsList, StringBuilder strBu, HashMap priceHash, Map optionsMap, long price){
 
         if(orderedOptionsList.isEmpty()) {
@@ -104,18 +111,10 @@ public class PriceCalculator {
         }
     }
 
-    private static long getTotalCartPrice(HashMap priceHash, List<CartItemInfo> cartItemList){
-        long totalCartPrice = 0;
-        long basePrice = 0;
-
-        for(CartItemInfo cartItem : cartItemList){
-            basePrice = (Long)priceHash.get(cartItem.hashIndex);
-            totalCartPrice += ((basePrice + Math.round(((basePrice * cartItem.artistMarkup))/100)) * cartItem.quantity) ;
-        }
-
-        return totalCartPrice;
-    }
-
+    /* Scrapes through the cart and builds out a map with each key
+       containing a string of each product-type appended with their
+       corresponding options
+    */
     private static List<CartItemInfo> parseCart(Map orderedOptionsMap,String cartPath){
         StringBuilder sb = new StringBuilder();
         JSONParser parser = new JSONParser();
@@ -168,6 +167,21 @@ public class PriceCalculator {
         }
 
         return tempItemList;
+    }
+
+    /* Compute total price as per formula given
+     */
+
+    private static long getTotalCartPrice(HashMap priceHash, List<CartItemInfo> cartItemList){
+        long totalCartPrice = 0;
+        long basePrice = 0;
+
+        for(CartItemInfo cartItem : cartItemList){
+            basePrice = (Long)priceHash.get(cartItem.hashIndex);
+            totalCartPrice += ((basePrice + Math.round(((basePrice * cartItem.artistMarkup))/100)) * cartItem.quantity) ;
+        }
+
+        return totalCartPrice;
     }
 
     public static void main(String[] args) {

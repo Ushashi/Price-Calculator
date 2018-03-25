@@ -5,27 +5,36 @@ package com.company.integrationtest;
 import com.company.PriceCalculator;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Before;
 import java.io.*;
-
+import java.util.Properties;
 
 public class PriceCalculatorIntegrationTest {
 
-    public static final String CART_PATH_Test_0 = "/Users/uchakraborty/ShoppingCartSchemas/cart-0.json";
-    public static final String CART_PATH_Test_1 = "/Users/uchakraborty/ShoppingCartSchemas/cart-4560.json";
-    public static final String CART_PATH_Test_2 = "/Users/uchakraborty/ShoppingCartSchemas/cart-9363.json";
-    public static final String CART_PATH_Test_3 = "/Users/uchakraborty/ShoppingCartSchemas/cart-9500.json";
-    public static final String CART_PATH_Test_4 = "/Users/uchakraborty/ShoppingCartSchemas/cart-11356.json";
-    public static final String BASE_PRICE_PATH  = "/Users/uchakraborty/ShoppingCartSchemas/base-prices.json";
+    Properties prop = new Properties();
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+    @Before
+    public void setup() {
+
+        String properties = "config.properties";
+
+        InputStream input = getClass().getClassLoader().getResourceAsStream(properties);
+
+        try {
+            prop.load(input);
+        }
+        catch (IOException e) {
+        }
+    }
 
     @Test
     public void testEmptyCart() {
 
         System.setOut(new PrintStream(out));
-        String[] inputArgs = {CART_PATH_Test_0, BASE_PRICE_PATH};
 
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_0"), (prop.getProperty("BASE_PRICE_PATH"))};
         PriceCalculator.main(inputArgs);
 
         Assert.assertEquals(0 + "\n", out.toString());
@@ -35,7 +44,8 @@ public class PriceCalculatorIntegrationTest {
     public void testCartWithOneItem() throws Exception {
 
         System.setOut(new PrintStream(out));
-        String[] inputArgs = {CART_PATH_Test_1, BASE_PRICE_PATH};
+
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_1"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -47,7 +57,8 @@ public class PriceCalculatorIntegrationTest {
     public void testCartWithMoreThanOneItemOfDifferentKinds() {
 
         System.setOut(new PrintStream(out));
-        String[] inputArgs = {CART_PATH_Test_2, BASE_PRICE_PATH};
+
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_2"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -58,7 +69,8 @@ public class PriceCalculatorIntegrationTest {
     public void testCartWithMoreThanOneItemOfSameKind() {
 
         System.setOut(new PrintStream(out));
-        String[] inputArgs = {CART_PATH_Test_3, BASE_PRICE_PATH};
+
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_3"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -69,7 +81,8 @@ public class PriceCalculatorIntegrationTest {
     public void testCartWithOneItemWithDifferentOptions() {
 
         System.setOut(new PrintStream(out));
-        String[] inputArgs = {CART_PATH_Test_4, BASE_PRICE_PATH};
+
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_4"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
