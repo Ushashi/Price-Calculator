@@ -7,17 +7,22 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
-import java.util.Map;
-import java.util.List;
 
 
 public class PriceCalculator {
 
-    public static int buildPriceHash(HashMap priceHash, HashMap orderedOptionsMap, String basePricesFilePath) {
+    static class CartItemInfo
+    {
+        String hashIndex;
+        long artistMarkup;
+        long quantity;
+    }
+
+    private static int buildPriceHash(HashMap priceHash, HashMap orderedOptionsMap, String basePricesFilePath) {
         int price = 0;
         int iterator = 0;
 
@@ -68,7 +73,8 @@ public class PriceCalculator {
 
     }
 
-    public static void hashIndexBuilder(int iterator, List orderedOptionsList, StringBuilder strBu, HashMap priceHash, Map optionsMap, long price){
+
+    private static void hashIndexBuilder(int iterator, List orderedOptionsList, StringBuilder strBu, HashMap priceHash, Map optionsMap, long price){
 
         if(orderedOptionsList.isEmpty()) {
             //No options
@@ -98,27 +104,32 @@ public class PriceCalculator {
         }
     }
 
-    public static void main(String[] args) {
-
+    private static long getTotalCartPrice(HashMap priceHash, List<CartItemInfo> cartItemList){
+        long totalCartPrice = 0;
         long basePrice = 0;
-        long totalItemPrice = 0;
-        long totalCartPrice =0;
 
-        HashMap priceHash = new HashMap();
-        HashMap orderedOptionsMap = new HashMap<String, List<String>>();
+        for(CartItemInfo cartItem : cartItemList){
+            basePrice = (Long)priceHash.get(cartItem.hashIndex);
+            totalCartPrice += ((basePrice + Math.round(((basePrice * cartItem.artistMarkup))/100)) * cartItem.quantity) ;
+        }
 
+        return totalCartPrice;
+    }
+
+    private static List<CartItemInfo> parseCart(Map orderedOptionsMap,String cartPath){
         StringBuilder sb = new StringBuilder();
         JSONParser parser = new JSONParser();
 
-        //Builds out the priceHash from the base prices file
-        buildPriceHash(priceHash, orderedOptionsMap, args[1]);
+        List<CartItemInfo> tempItemList = new ArrayList<CartItemInfo>();
 
         try {
 
-            JSONArray cart = (JSONArray) parser.parse(new FileReader( args[0]));
+            JSONArray cart = (JSONArray) parser.parse(new FileReader(cartPath));
 
             for (Object obj : cart)
             {
+                CartItemInfo tempItem = new CartItemInfo();
+
                 sb.setLength(0);
                 JSONObject jsonObject = (JSONObject) obj;
 
@@ -137,20 +148,15 @@ public class PriceCalculator {
                     sb.append( options.get(tempOrderedOptionsList.get(i)));
                 }
 
-                basePrice = Long.parseLong(priceHash.get(sb.toString()).toString());
+                tempItem.hashIndex = sb.toString();
 
-                long artistMarkup = (Long) jsonObject.get("artist-markup");
+                tempItem.artistMarkup = (Long) jsonObject.get("artist-markup");
 
-                long quantity = (Long) jsonObject.get("quantity");
+                tempItem.quantity = (Long) jsonObject.get("quantity");
 
-                //Enter price equation
-
-                totalItemPrice = ((basePrice + Math.round(((basePrice * artistMarkup))/100)) * quantity) ;
-
-                totalCartPrice += totalItemPrice;
+                tempItemList.add(tempItem);
 
             }
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -161,6 +167,23 @@ public class PriceCalculator {
             e.printStackTrace();
         }
 
-        System.out.println(totalCartPrice +"\n");
+        return tempItemList;
+    }
+
+    public static void main(String[] args) {
+        long totalCartPrice =0;
+        List<CartItemInfo> cartItemList;
+
+        HashMap priceHash = new HashMap<String, Long>();
+        HashMap orderedOptionsMap = new HashMap<String, List<String>>();
+
+        //Builds out the priceHash from the base prices file
+        buildPriceHash(priceHash, orderedOptionsMap, args[1]);
+
+        cartItemList = parseCart(orderedOptionsMap, args[0]);
+
+        totalCartPrice = getTotalCartPrice(priceHash, cartItemList);
+
+        System.out.println(totalCartPrice);
     }
 }
