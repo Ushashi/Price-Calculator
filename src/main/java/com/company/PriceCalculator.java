@@ -1,5 +1,5 @@
 /**
- * Created by uchakraborty on 3/15/18.
+ * Created by uchakraborty on 3/26/18.
  * This program takes two command-line arguments:
  *        - a JSON file representing a cart, and
  *        - a JSON file representing a list of base prices.
@@ -34,8 +34,8 @@ public class PriceCalculator {
 
     /*
      * Builds out a HashMap that contains prices corresponding to all product types and their permutations of options from
-     * a base price file. Additionally a second HashMap is built that tracks the first ordering the product options are
-     * discovered. Since two hashes are getting built, this method's output occurs by reference for consistency.
+     * a base price file. Additionally, a second HashMap is built that tracks the first ordering as the product options are
+     * discovered. Since, two hashes are getting built, this method's output occurs by reference for consistency.
      *
      * @param (HashMap priceHash) HashMap passed by reference that is to be built, linking product/option combinations
      *                            (key) with their base price (value)
@@ -101,7 +101,7 @@ public class PriceCalculator {
      * entry. Additionally this method adds each index string to the priceHash with its associated base price value. This
      * is done inline in this method for efficiency sake.
      *
-     * @param (int iterator) Keeps track of which option we're currently running the method on.
+     * @param (int iterator) Keeps track of which option we are currently running the method on.
      * @param (List orderedOptionsList) Used as the key for the optionsMap, to ensure options are correctly ordered when
      *                                  creating the index string (ie Size+Color+Placement).
      * @param (StringBuilder strBu) Progressively builds the final index string, which is saved as the key in the priceHash
@@ -112,7 +112,7 @@ public class PriceCalculator {
     private static void hashIndexBuilder(int iterator, List orderedOptionsList, StringBuilder strBu, HashMap priceHash, Map optionsMap, long price){
 
         /* Gets the actual options (ie Small, Medium, Large) into a list, this list is retrieved based on the order of
-         * which option we'e on (ie Size, Color, Placement) */
+         * which option we are on (ie Size, Color, Placement) */
         List currentOptions = (ArrayList<String>)optionsMap.get((orderedOptionsList.get(iterator)));
 
         //Save length, so we know how to revert appends

@@ -45,7 +45,7 @@ public class PriceCalculatorIntegrationTest {
 
         System.setOut(new PrintStream(out));
 
-        String[] inputArgs = {prop.getProperty("CART_PATH_Test_6"), (prop.getProperty("BASE_PRICE_PATH"))};
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_1"), (prop.getProperty("BASE_PRICE_PATH"))};
         PriceCalculator.main(inputArgs);
 
         Assert.assertEquals(3800 + "\n", out.toString());
@@ -56,7 +56,7 @@ public class PriceCalculatorIntegrationTest {
 
         System.setOut(new PrintStream(out));
 
-        String[] inputArgs = {prop.getProperty("CART_PATH_Test_1"), (prop.getProperty("BASE_PRICE_PATH"))};
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_2"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -69,7 +69,7 @@ public class PriceCalculatorIntegrationTest {
 
         System.setOut(new PrintStream(out));
 
-        String[] inputArgs = {prop.getProperty("CART_PATH_Test_2"), (prop.getProperty("BASE_PRICE_PATH"))};
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_3"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -81,7 +81,7 @@ public class PriceCalculatorIntegrationTest {
 
         System.setOut(new PrintStream(out));
 
-        String[] inputArgs = {prop.getProperty("CART_PATH_Test_3"), (prop.getProperty("BASE_PRICE_PATH"))};
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_4"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -93,7 +93,7 @@ public class PriceCalculatorIntegrationTest {
 
         System.setOut(new PrintStream(out));
 
-        String[] inputArgs = {prop.getProperty("CART_PATH_Test_4"), (prop.getProperty("BASE_PRICE_PATH"))};
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_5"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
@@ -105,7 +105,7 @@ public class PriceCalculatorIntegrationTest {
 
         System.setOut(new PrintStream(out));
 
-        String[] inputArgs = {prop.getProperty("CART_PATH_Test_5"), (prop.getProperty("BASE_PRICE_PATH"))};
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_6"), (prop.getProperty("BASE_PRICE_PATH"))};
 
         PriceCalculator.main(inputArgs);
 
