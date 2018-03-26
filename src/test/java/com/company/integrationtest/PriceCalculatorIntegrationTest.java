@@ -30,7 +30,7 @@ public class PriceCalculatorIntegrationTest {
     }
 
     @Test
-    public void testEmptyCart() {
+    public void testCartWithOneItemQuantityZero() {
 
         System.setOut(new PrintStream(out));
 
@@ -38,6 +38,17 @@ public class PriceCalculatorIntegrationTest {
         PriceCalculator.main(inputArgs);
 
         Assert.assertEquals(0 + "\n", out.toString());
+    }
+
+    @Test
+    public void testCartWithOneItemMarkupZero() {
+
+        System.setOut(new PrintStream(out));
+
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_6"), (prop.getProperty("BASE_PRICE_PATH"))};
+        PriceCalculator.main(inputArgs);
+
+        Assert.assertEquals(3800 + "\n", out.toString());
     }
 
     @Test
@@ -87,6 +98,18 @@ public class PriceCalculatorIntegrationTest {
         PriceCalculator.main(inputArgs);
 
         Assert.assertEquals(11356 + "\n", out.toString());
+    }
+
+    @Test
+    public void testCartWithOneItemWithNoOptions() {
+
+        System.setOut(new PrintStream(out));
+
+        String[] inputArgs = {prop.getProperty("CART_PATH_Test_5"), (prop.getProperty("BASE_PRICE_PATH"))};
+
+        PriceCalculator.main(inputArgs);
+
+        Assert.assertEquals(6000 + "\n", out.toString());
     }
 }
 
