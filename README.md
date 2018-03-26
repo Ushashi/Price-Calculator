@@ -29,4 +29,4 @@
 
 * To run all the integration tests separately (although they get run already when we do mvn install) :
 
-       mvn clean tests
+       mvn clean test
